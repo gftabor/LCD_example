@@ -11,40 +11,52 @@
 //Main competition background code...do not modify!
 #include "Vex_Competition_Includes.c"
 int auton = 0;
+
+
+//ADD all autonomous choices
+void displayAuton(){
+	switch(auton){
+	case 1:
+		displayLCDCenteredString(0, "red auton");
+		break;
+	case -1:
+		displayLCDCenteredString(0, "blue auton");
+		break;
+	case 0:
+		displayLCDCenteredString(0, "ram auton");
+		break;
+	default:
+		displayLCDCenteredString(0, "No auton");
+		break;
+	}
+}
+
+
+//DO NOT MODIFY
 task LCDControl()
 {
 	bool noButtonsPressed = true;
+	displayAuton();
 	while(true){
 		if(noButtonsPressed){ // only update auton if a button is pressed AND wasn't pressed previously
 			switch(nLCDButtons){
 			case kButtonLeft:
 				auton--;
+				displayAuton();
 				break;
 			case kButtonCenter:
 				stopTask(LCDControl);
 				break;
 			case kButtonRight:
 				auton++;
+				displayAuton();
 				break;
 			}
-		}
+		}//if
 		noButtonsPressed = !nLCDButtons; //update if there is a button currently pressed
-		switch(auton){
-		case 1:
-			displayLCDCenteredString(0, "red auton");
-			break;
-		case -1:
-			displayLCDCenteredString(0, "blue auton");
-			break;
-		case 0:
-			displayLCDCenteredString(0, "ram auton");
-			break;
-		default:
-			displayLCDCenteredString(0, "No auton");
-			break;
-		}
-	}
-}
+		wait1Msec(20);
+	}//while
+}//task
 
 
 void pre_auton()
