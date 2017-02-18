@@ -65,7 +65,7 @@ task LCDControl()
 
 void pre_auton()
 {
-	bStopTasksBetweenModes = true;
+	bStopTasksBetweenModes = false;
 	bDisplayCompetitionStatusOnLcd = false;
 	startTask(LCDControl);
 }
